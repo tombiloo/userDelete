@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html class="no-js">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Tombiloo Delete User</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Tombiloo Delete User">
+    <!-- Favicon -->
+    <link rel="icon" href="assets/images/logo.png">
+
+    <!-- Main Style CSS -->
+    <link id="styleLink" rel="stylesheet" href="assets/css/style.css">
+    <link id="styleLinkAr" rel="stylesheet" href="assets/css/styleAr.css">
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set the current language on page load
+            setLanguageButtonText();
+
+            window.languageData = {
+                "en": {
+                    "DeleteAcount": "Delete Account",
+                    "title1": "  The Tombiloo app is committed to protecting your personal data in accordance with the privacy policy stated in our application.",
+                    "title2": "We are currently explaining to you the method of permanently deleting your account from our application's database through the app.",
+                    "title3": "Firstly: Log in to your account from the application. ",
+                    "title4": "Secondly: Access your profile from the application and choose Delete Account.        ",
+
+                    "title5": "After clicking on Delete Account you will be asked to confirm the option, and upon confirmation, your account will be permanently deleted from the application.",
+                    "title6": "After that, a confirmation message will appear to confirm the deletion of the account.  ",
+                    "title7": "Note: It is impossible to recover your account in any way after deletion."
+                },
+                "ar": {
+                    "DeleteAcount": "حذف الحساب",
+                    "title1": " يلتزم تطبيق تومبيلوو فى حماية البيانات الشخصية الخاصة بك وفق سياسة الخصوصية المذكورة فى تطبيقنا",
+                    "title2": "  نشرح لك حاليا طريقة حذف حسابك بشكل نهائى من تطبيقنا من قاعدة البيانات الخاصة بنا من خلال التطبيق",
+                    "title4": "ثانيا  : الدخول الى  الملف الشخصي من التطبيق و اختيار حذف الحساب       ",
+
+                    "title3": " اولا : الدخول الى  حسابك من التطبيق",
+                    "title5": " بعد الضغط على حذف الحساب سوف يتم طلب منك التأكيد على الخيار وبعد التأكيد سيتم حذف حسابك بشكل نهائي من التطبيق        ",
+                    "title6": "  بعد ذالك تظهر لك  رسالة  تاكيد حذف الحساب    ",
+                    "title7": "ملاحظة : لا يمكن بشكل من الأشكال استعادة حسابك بعد حذفه  "
+                },
+                "fr": {
+                    "DeleteAcount": "Accueil",
+                    "title1": " L'application Tombiloo s'engage à protéger vos données personnelles conformément à la politique de confidentialité mentionnée dans notre application.",
+                    "title2": "Nous vous expliquons actuellement la méthode pour supprimer définitivement votre compte de notre application à partir de notre base de données via l'application. ",
+                    "title3": "Premièrement : Connectez-vous à votre compte à partir de l'application. ",
+                    "title4": "Deuxièmement : Accédez à votre profil depuis l'application et choisissez Supprimer le compte. ",
+
+                    "title5": "Après avoir cliqué sur Supprimer le compte vous serez invité à confirmer l'option, et après confirmation, votre compte sera définitivement supprimé de l'application. ",
+                    "title6": "Après cela, un message de confirmation apparaîtra pour confirmer la suppression du compte.       "
+                    , "title7": "Note : Il est impossible de récupérer votre compte de quelque manière que ce soit après sa suppression.      "
+
+                }
+            };
+            checkLanguageAndChangeText();
+
+            /*
+            // Load language data from the JSON file
+            fetch('languages.json')
+                .then(response => response.json())
+                .then(data => {
+                    // Store language data globally
+                    window.languageData = data;
+
+                    // Check language and change texts accordingly
+                    checkLanguageAndChangeText();
+                });
+            */
+        });
+
+        function checkLanguageAndChangeText() {
+            // Retrieve the selected language from local storage or set a default language
+            var selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+
+            // Update text content based on the selected language
+            var elements = document.querySelectorAll('[data-lang]');
+            elements.forEach(function (element) {
+                var key = element.getAttribute('data-lang');
+                if (languageData[selectedLanguage] && languageData[selectedLanguage][key]) {
+                    element.textContent = languageData[selectedLanguage][key];
+                }
+            });
+
+            // Update the language button text
+            setLanguageButtonText();
+            changeImages(selectedLanguage);
+
+        }
+        function changeImages(selectedLanguage) {
+
+            switch (selectedLanguage) {
+                case 'en':
+                    document.getElementById('loginImage').src = './assets/images/loginEn.jpg';
+                    document.getElementById('deleteImage').src = './assets/images/deleteEn.jpg';
+                    document.getElementById('confirmImage').src = './assets/images/confirmEn.jpg';
+                    break;
+                case 'ar':
+                    document.getElementById('loginImage').src = './assets/images/loginAr.jpg';
+                    document.getElementById('deleteImage').src = './assets/images/deleteAr.jpg';
+                    document.getElementById('confirmImage').src = './assets/images/confirmAr.jpg';
+                    break;
+                case 'fr':
+                    document.getElementById('loginImage').src = './assets/images/loginEn.jpg';
+                    document.getElementById('deleteImage').src = './assets/images/loginEn.jpg';
+                    document.getElementById('confirmImage').src = './assets/images/confirmEn.jpg';
+                    break;
+                default:
+                    document.getElementById('loginImage').src = './assets/images/loginEn.jpg';
+                    document.getElementById('deleteImage').src = './assets/images/deleteEn.jpg';
+                    document.getElementById('confirmImage').src = './assets/images/loginEn.jpg';// Default to English image
+            }
+        }
+        function setLanguageButtonText() {
+            var currentLanguageButton = document.getElementById('currentLanguageButton');
+            var selectedLanguage = localStorage.getItem('selectedLanguage') || 'en';
+            switch (selectedLanguage) {
+                case 'en':
+                    currentLanguageButton.textContent = 'English';
+                    document.getElementById('styleLink').disabled = false; // Enable English stylesheet
+                    document.getElementById('styleLinkAr').disabled = true; // Disable Arabic stylesheet
+                    break;
+                case 'ar':
+                    currentLanguageButton.textContent = 'العربية';
+                    document.getElementById('styleLink').disabled = true; // Disable English stylesheet
+                    document.getElementById('styleLinkAr').disabled = false; // Enable Arabic stylesheet
+                    break;
+                case 'fr':
+                    currentLanguageButton.textContent = 'Français';
+                    document.getElementById('styleLink').disabled = false; // Enable English stylesheet
+                    document.getElementById('styleLinkAr').disabled = true; // Disable Arabic stylesheet
+                    break;
+                default:
+                    currentLanguageButton.textContent = 'English';
+                    document.getElementById('styleLink').disabled = false; // Enable English stylesheet
+                    document.getElementById('styleLinkAr').disabled = true; // Disable Arabic stylesheet
+            }
+
+            // Set page direction based on the selected language
+            var htmlElement = document.documentElement;
+            htmlElement.setAttribute('lang', selectedLanguage);
+            htmlElement.setAttribute('dir', selectedLanguage === 'ar' ? 'rtl' : 'ltr');
+        }
+
+        function changeLanguage(lang) {
+            // Store the selected language in local storage
+            localStorage.setItem('selectedLanguage', lang);
+
+            // Change texts based on the selected language
+            checkLanguageAndChangeText();
+            location.reload();
+
+        }
+    </script>
+
+
+</head>
+
+<body>
+    <div id="main-wrapper" style="padding: 20px;">
+        <div class="site-wrapper-reveal" style="text-align: center;">
+            <div style="display: flex; justify-content: space-between;">
+                <div style="width: 20%;"></div>
+                <h5 data-lang="DeleteAcount" class="headerDiv">حذف الحساب</h5>
+                <div class="language-selector" style="width: 20%;">
+                    <div class="dropdown">
+                        <button class="dropbtn" id="currentLanguageButton">Language <img style="width: 20px;" src="./assets/images/lang.png" alt=""/></button>
+                        <div class="dropdown-content">
+                            <a href="#" onclick="changeLanguage('en')"><span>English</span> <img style="width: 20px;" src="./assets/images/en.png" alt=""/></a>
+                            <a href="#" onclick="changeLanguage('ar')"><span>العربية</span> <img style="width: 20px;" src="./assets/images/ar.png" alt=""/></a>
+                            <!-- <a href="#" onclick="changeLanguage('fr')">Français</a> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <p style="padding-top: 10px;" data-lang="title1">
+                يلتزم تطبيق تومبيلوو فى حماية البيانات الشخصية الخاصة بك وفق سياسة الخصوصية المذكورة فى تطبيقنا
+            </p>
+            <p style="padding-top: 10px;" data-lang="title2">
+                نشرح لك حاليا طريقة حذف حسابك بشكل نهائى من تطبيقنا من قاعدة البيانات الخاصة بنا من خلال التطبيق
+            </p>
+            <p style="padding-top: 10px; font-weight:bold;" data-lang="title3">
+                اولا : الدخول الى حسابك من التطبيق
+            </p>
+            <div style="display: flex; justify-content: center;">
+                <img style="width: 200px;" id="loginImage" src="./assets/images/loginAr.jpg" alt="">
+
+            </div>
+            <p style="padding-top: 10px;font-weight:bold;" data-lang="title4">
+                ثانيا : الدخول الى الملف الشخصي من التطبيق و اختيار حذف الحساب
+            </p>
+            <p style="padding-top: 10px;" data-lang="title5">
+                بعد الضغط على حذف الحساب سوف يتم طلب منك التأكيد على الخيار وبعد التأكيد سيتم حذف حسابك بشكل نهائي
+                من التطبيق
+            </p>
+            <div style="display: flex; justify-content: center;">
+                <img style="width: 200px;" id="deleteImage" src="./assets/images/deleteAr.jpg" alt="">
+
+            </div>
+            <p style="padding-top: 10px; font-weight:bold;" data-lang="title6">
+                بعد ذالك تظهر لك رسالة تاكيد حذف الحساب
+            </p>
+            <div style="display: flex; justify-content: center;">
+                <img style="width: 200px;" id="confirmImage" src="./assets/images/confirmAr.jpg" alt="">
+            </div>
+            <p style="padding-top: 10px; text-decoration: underline; color: red;" data-lang="title7">
+                ملاحظة : لا يمكن بأى بشكل من الأشكال استعادة حسابك بعد حذفه
+            </p>
+        </div>
+    </div>
+
+    <!-- Main JS -->
+    <script src="assets/js/main.js"></script>
+    <script>
+        function toggleDropdown() {
+            var dropdown = document.getElementById("languageDropdown");
+            dropdown.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.matches('.dropbtn')) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                var i;
+                for (i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains('show')) {
+                        openDropdown.classList.remove('show');
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        .headerDiv {
+            background-color: rgb(245, 100, 100);
+            width: 100%;
+            margin: auto;
+            color: white;
+        }
+    </style>
+</body>
+
+</html>
